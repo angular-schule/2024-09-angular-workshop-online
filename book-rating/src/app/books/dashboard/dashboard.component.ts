@@ -12,8 +12,6 @@ import { BookComponent } from '../book/book.component';
 export class DashboardComponent {
   books: Book[] = [];
 
-  foo = [1,2,3,6,7,4,4]
-
   constructor() {
     this.books = [
       {
