@@ -29,5 +29,7 @@ export class DashboardComponent {
         price: 32.9
       }
     ];
+
+
   }
 }
