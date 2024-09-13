@@ -9,7 +9,7 @@ import { JsonPipe } from '@angular/common';
   standalone: true,
   imports: [BookComponent, JsonPipe],
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss'
+  styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent {
   private rs = inject(BookRatingService);
