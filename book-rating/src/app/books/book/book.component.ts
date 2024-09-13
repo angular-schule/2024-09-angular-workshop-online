@@ -13,7 +13,8 @@ import { CurrencyPipe } from '@angular/common';
 export class BookComponent {
   // Hier fließen Daten von der Elternkomponente hinein
   // von oben nach unten
-  @Input() book?: Book;
+  // @Input() book?: Book;
+  book = input.required<Book>();
 
   @Input() maxRating = 10;
   @Input() minRating = 0;
@@ -26,14 +27,10 @@ export class BookComponent {
   rateDown = output<Book>();
 
   doRateUp() {
-    if (this.book) {
-      this.rateUp.emit(this.book);
-    }
+    this.rateUp.emit(this.book());
   }
 
   doRateDown() {
-    if (this.book) {
-      this.rateDown.emit(this.book);
-    }
+    this.rateDown.emit(this.book())
   }
 }

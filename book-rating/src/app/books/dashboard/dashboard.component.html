@@ -1,4 +1,4 @@
-@for (b of books; track b.isbn) {
+@for (b of books(); track b.isbn) {
 <app-book
   [book]="b"
   [maxRating]="5"
@@ -8,9 +8,7 @@
 }
 
 
-@if (books.length > 0) {
-  <p>Anzahl Bücher: {{ books.length }}</p>
-}
+<p>Anzahl Bücher: {{ books().length }}</p>
 
 
 {{ books | json }}
