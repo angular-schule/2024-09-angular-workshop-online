@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BookComponent } from './book.component';
+import { Book } from '../shared/book';
 
 describe('BookComponent', () => {
   let component: BookComponent;
@@ -14,6 +15,9 @@ describe('BookComponent', () => {
 
     fixture = TestBed.createComponent(BookComponent);
     component = fixture.componentInstance;
+
+    // Required Input setzen
+    fixture.componentRef.setInput('book', {} as Book);
 
     fixture.detectChanges();
   });
