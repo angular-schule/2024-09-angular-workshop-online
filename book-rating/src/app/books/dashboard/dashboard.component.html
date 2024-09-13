@@ -1,6 +1,8 @@
 @for (b of books; track b.isbn) {
 <app-book
   [book]="b"
+  [maxRating]="5"
+  [minRating]="1"
   (rateUp)="doRateUp($event)"
   (rateDown)="doRateDown($event)"></app-book>
 }
