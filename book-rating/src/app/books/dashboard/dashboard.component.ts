@@ -21,6 +21,11 @@ export class DashboardComponent {
   books = signal<Book[]>([]);
 
   constructor() {
+    /*this.bs.getAll().subscribe(books => {
+      this.books.set(books);
+    })*/
+
+
     this.bs.getAll().subscribe({
       next: books => {
         this.books.set(books);
