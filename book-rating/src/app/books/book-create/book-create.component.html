@@ -1,26 +1,30 @@
-<form>
+<form [formGroup]="bookForm">
   <div class="form-group">
     <label for="isbnInput">ISBN</label>
-    <input type="text" id="isbnInput" class="form-control">
+    <input type="text" id="isbnInput" class="form-control" formControlName="isbn">
+    @if(formControlInvalid('isbn')) {<div class="feedback-error">Die ISBN ist fehlerhaft!</div>}
   </div>
 
   <div class="form-group">
     <label>Titel</label>
-    <input type="text" class="form-control">
+    <input type="text" class="form-control" formControlName="title">
   </div>
 
   <div class="form-group">
     <label>Beschreibung</label>
-    <textarea class="form-control"></textarea>
+    <textarea class="form-control" formControlName="description"></textarea>
   </div>
 
   <div class="form-group">
     <label>Bewertung</label>
-    <input type="number" class="form-control">
+    <input type="number" class="form-control" formControlName="rating">
   </div>
 
   <div class="form-group">
     <label>Preis</label>
-    <input type="number" class="form-control">
+    <input type="number" class="form-control" formControlName="price">
   </div>
 </form>
+
+
+<pre>{{ bookForm.value | json }}</pre>
