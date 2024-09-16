@@ -25,6 +25,7 @@ export class BookComponent {
   // @Output() rateDown = new EventEmitter<Book>();
   rateUp = output<Book>();
   rateDown = output<Book>();
+  delete = output<Book>();
 
   doRateUp() {
     this.rateUp.emit(this.book());
@@ -32,5 +33,13 @@ export class BookComponent {
 
   doRateDown() {
     this.rateDown.emit(this.book())
+  }
+
+  doDelete() {
+    if (!confirm('Buch wirklich löschen?')) {
+      return;
+    }
+
+    this.delete.emit(this.book());
   }
 }

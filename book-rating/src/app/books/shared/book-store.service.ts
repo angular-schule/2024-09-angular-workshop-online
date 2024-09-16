@@ -28,4 +28,8 @@ export class BookStoreService {
   search(term: string) {
     return this.http.get<Book[]>(this.apiUrl + '/books/search/' + term);
   }
+
+  delete(isbn: string) {
+    return this.http.delete<unknown>(this.apiUrl + '/books/' + isbn);
+  }
 }
