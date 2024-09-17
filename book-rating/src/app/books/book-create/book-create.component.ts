@@ -1,6 +1,9 @@
 import { JsonPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { BookStoreService } from '../shared/book-store.service';
+import { Book } from '../shared/book';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-book-create',
@@ -10,6 +13,10 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
   styleUrl: './book-create.component.scss'
 })
 export class BookCreateComponent {
+
+  private bs = inject(BookStoreService);
+  private router = inject(Router);
+
   bookForm = new FormGroup({
     isbn: new FormControl('', {
       nonNullable: true,
@@ -49,19 +56,40 @@ export class BookCreateComponent {
   })
 
 
+  // formControlInvalid(controlName: keyof typeof this.bookForm.controls): boolean {
   formControlInvalid(controlName: string): boolean {
-    return false; // TODO morgen :-)
+    // "Ist das Control mit dem Namen controlName invalid und touched?"
+    // const control = this.bookForm.controls[controlName]
+    const control = this.bookForm.get(controlName);
+
+    if (!control) {
+      return false;
+    }
+
+    return control.touched && control.invalid;
+  }
+
+
+  hasError(controlName: string, errorCode: string): boolean {
+    // "Hat das Control mit dem Namen controlName den Fehler errorCode?"
+    const control = this.bookForm.get(controlName);
+
+    if (!control) {
+      return false;
+    }
+
+    return control.hasError(errorCode) && control.touched;
+  }
+
+  submitForm() {
+    console.log('submitForm');
+    if (this.bookForm.invalid) {
+      return;
+    }
+
+    const newBook: Book = this.bookForm.getRawValue();
+    this.bs.create(newBook).subscribe(receivedBook => {
+      this.router.navigate(['/books', receivedBook.isbn]);
+    });
   }
 }
-
-/*
-TODO
-- Validierung
-- Feedback:
-  - Die ISBN ist fehlerhaft
-  - Die ISBN ist zu kurz.
-- Submit-Button
-- abschicken
-- HTTP-Request create
-- wenn erfolgreich: Redirect zum Dashboard
-*/

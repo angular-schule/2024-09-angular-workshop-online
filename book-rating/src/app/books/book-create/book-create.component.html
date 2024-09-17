@@ -1,8 +1,11 @@
-<form [formGroup]="bookForm">
+<form [formGroup]="bookForm" (ngSubmit)="submitForm()">
   <div class="form-group">
     <label for="isbnInput">ISBN</label>
     <input type="text" id="isbnInput" class="form-control" formControlName="isbn">
     @if(formControlInvalid('isbn')) {<div class="feedback-error">Die ISBN ist fehlerhaft!</div>}
+    @if (hasError('isbn', 'minlength')) {<div class="feedback-error">Die ISBN ist zu kurz!</div>}
+    @if (hasError('isbn', 'required')) {<div class="feedback-error">Die ISBN fehlt!</div>}
+    @if (hasError('isbn', 'pattern')) {<div class="feedback-error">Die ISBN hat das falsche Format!</div>}
   </div>
 
   <div class="form-group">
@@ -24,6 +27,9 @@
     <label>Preis</label>
     <input type="number" class="form-control" formControlName="price">
   </div>
+
+  <button type="submit" class="btn btn-green" [disabled]="bookForm.invalid">Abschicken</button>
+
 </form>
 
 
