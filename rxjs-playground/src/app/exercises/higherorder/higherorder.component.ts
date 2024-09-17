@@ -31,6 +31,7 @@ export class HigherorderComponent {
     /**************!!**************/
 
     this.result$ = this.source$.pipe(
+      // map(tier => this.es.echo(tier))
     );
 
     /**************!!**************/
