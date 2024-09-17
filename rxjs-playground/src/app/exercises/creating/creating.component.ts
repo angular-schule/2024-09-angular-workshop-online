@@ -55,7 +55,7 @@ export class CreatingComponent {
       setTimeout(() => sub.next(100), 2000)
       setTimeout(() => sub.next(500), 4000)
       setTimeout(() => sub.next(800), 6000)
-      setTimeout(() => sub.complete(), 6500)
+      setTimeout(() => sub.error('dfgdfgf'), 6500)
     }
 
     // Observer: hört zu

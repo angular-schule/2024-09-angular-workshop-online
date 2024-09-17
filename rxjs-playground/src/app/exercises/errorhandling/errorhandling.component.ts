@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ReplaySubject, throwError, of, EMPTY, retry, catchError } from 'rxjs';
+import { ReplaySubject, throwError, of, EMPTY, retry, catchError, from, Observable } from 'rxjs';
 
 import { HistoryComponent } from '../../shared/history/history.component';
 import { DataService } from './data.service';
@@ -21,12 +21,21 @@ export class ErrorhandlingComponent {
 
   start() {
     this.ds.getData().pipe(
+      catchError(err => {
+        // mit Fehler arbeiten
 
-      /******************************/
+        // Ergebnis
+        // Fehler ersetzen durch "gutartiges" Element
+        // return of('Nichts passiert!', '😇');
 
-      
-      /******************************/
+        // Fehler unterdrücken/ignorieren
+        // return of();
+        // return EMPTY;
 
+        // Fehler weiterwerfen
+        // return throwError(() => 'MEIN FEHLER! 😒');
+        throw 'BÖSER FEHLER! 😡';
+      })
     ).subscribe({
       next: e => this.logStream$.next(e),
       error: err => this.logStream$.next('❌ ERROR: ' + err),
