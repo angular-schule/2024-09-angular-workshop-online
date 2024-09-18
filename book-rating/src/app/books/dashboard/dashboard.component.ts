@@ -58,12 +58,7 @@ export class DashboardComponent {
   }
 
   doDelete(book: Book) {
-    this.bs.delete(book.isbn).subscribe(() => {
-      this.bs.getAll().subscribe(books => {
-        // this.books.set(books);
-        this.store.dispatch(BookActions.loadBooks())
-      });
-    })
+    this.store.dispatch(BookActions.deleteBook({ isbn: book.isbn }));
   }
 
   // private updateList(ratedBook: Book) {

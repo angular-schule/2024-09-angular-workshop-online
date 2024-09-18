@@ -28,4 +28,21 @@ export class BookEffects {
     )
   });
 
+  deleteBook$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(BookActions.deleteBook),
+      concatMap(action => this.bs.delete(action.isbn).pipe(
+        map(() => BookActions.deleteBookSuccess()),
+        catchError(err => of(BookActions.deleteBookFailure({ error: err.message })))
+      ))
+    )
+  });
+
+  loadBooksAfterDelete$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(BookActions.deleteBookSuccess),
+      map(() => BookActions.loadBooks())
+    );
+  });
+
 }
