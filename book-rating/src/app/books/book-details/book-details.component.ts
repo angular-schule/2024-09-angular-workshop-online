@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { BookStoreService } from '../shared/book-store.service';
 import { Book } from '../shared/book';
+import { concatMap, filter, map } from 'rxjs';
 
 @Component({
   selector: 'app-book-details',
@@ -24,14 +25,15 @@ export class BookDetailsComponent {
     // console.log(isbn);
 
     // PUSH
-    // TODO: Verschachtelte Subscriptions vermeiden
-    this.route.paramMap.subscribe(params => {
-      const isbn = params.get('isbn')!; // Non-Null Assertion. bitte vorsichtig verwenden
-        this.bs.getSingle(isbn).subscribe(book => {
-          this.book = book;
-          // this.xbook.set(book);
-        });
+    this.route.paramMap.pipe(
+      map(params => params.get('isbn')),
+      filter(isbn => isbn !== null),
+      concatMap(isbn => this.bs.getSingle(isbn))
+    ).subscribe(book => {
+      this.book = book;
+      // this.xbook.set(book);
     });
+
 
 
 
