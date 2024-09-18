@@ -5,6 +5,10 @@ import { BookRatingService } from '../shared/book-rating.service';
 import { JsonPipe } from '@angular/common';
 import { BookStoreService } from '../shared/book-store.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Store } from '@ngrx/store';
+import { BookActions } from '../store/book.actions';
+import { map } from 'rxjs';
+import { selectBooks } from '../store/book.selectors';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,23 +20,33 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class DashboardComponent {
   private rs = inject(BookRatingService);
   private bs = inject(BookStoreService);
+  private store = inject(Store);
 
   // books: Book[] = [];
-  books = signal<Book[]>([]);
+  books = this.store.selectSignal(selectBooks); // signal<Book[]>([]);
 
   constructor() {
+
+    this.store.dispatch(BookActions.loadBooks());
+
+    // Buchliste als Observable
+    // this.store.select(selectBooks);
+
+    // Buchliste als Signal
+    // this.store.selectSignal(selectBooks);
+
     /*this.bs.getAll().subscribe(books => {
       this.books.set(books);
     })*/
 
 
-    this.bs.getAll().subscribe({
+    /*this.bs.getAll().subscribe({
       next: books => {
         this.books.set(books);
         // this.books = books;
       },
       error: (err: HttpErrorResponse) => {}
-    })
+    })*/
   }
 
   doRateUp(book: Book) {
@@ -48,7 +62,7 @@ export class DashboardComponent {
   doDelete(book: Book) {
     this.bs.delete(book.isbn).subscribe(() => {
       this.bs.getAll().subscribe(books => {
-        this.books.set(books);
+        // this.books.set(books);
       });
     })
   }
@@ -76,13 +90,13 @@ export class DashboardComponent {
     }))*/
 
     // mit Signal mit update()
-    this.books.update(currentBookList => currentBookList.map(b => {
+    /*this.books.update(currentBookList => currentBookList.map(b => {
       if (b.isbn === ratedBook.isbn) {
         return ratedBook;
       } else {
         return b;
       }
-    }));
+    }));*/
 
 
   }
