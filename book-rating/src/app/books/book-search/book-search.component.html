@@ -1,1 +1,12 @@
-<p>book-search works!</p>
+<div class="form-group">
+  <input type="search" class="form-control" [formControl]="searchControl">
+</div>
+
+@if (searchResult(); as books) {
+  <h2>Ergebnisse</h2>
+  <ul>
+    @for (b of books; track b.isbn) {
+      <li>{{ b.title }}</li>
+    }
+  </ul>
+}
