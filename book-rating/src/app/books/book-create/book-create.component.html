@@ -6,6 +6,8 @@
     @if (hasError('isbn', 'minlength')) {<div class="feedback-error">Die ISBN ist zu kurz!</div>}
     @if (hasError('isbn', 'required')) {<div class="feedback-error">Die ISBN fehlt!</div>}
     @if (hasError('isbn', 'pattern')) {<div class="feedback-error">Die ISBN hat das falsche Format!</div>}
+
+    <pre>{{ bookForm.controls.isbn.errors | json }}</pre>
   </div>
 
   <div class="form-group">

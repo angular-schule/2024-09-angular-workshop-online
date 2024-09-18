@@ -30,8 +30,8 @@ export class UnsubscribeComponent implements OnDestroy {
 
     interval$.pipe(
       // takeUntil(timer(5200)),
-      // takeUntil(this.destroy$)
-      takeUntilDestroyed()
+      takeUntil(this.destroy$)
+      //takeUntilDestroyed()
     ).subscribe({
       next: e => this.log(e),
       error: err => this.log('❌ ERROR: ' + err),
