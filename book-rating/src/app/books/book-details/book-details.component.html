@@ -1,4 +1,9 @@
-@if (book$ | async; as book) {
+<!--@if (book$ | async; as book) {
+  <h2>{{ book.title }}</h2>
+  <p>{{ book.description }}</p>
+}-->
+
+@if (bookx(); as book) {
   <h2>{{ book.title }}</h2>
   <p>{{ book.description }}</p>
 }

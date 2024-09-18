@@ -4,6 +4,7 @@ import { BookStoreService } from '../shared/book-store.service';
 import { Book } from '../shared/book';
 import { concatMap, filter, map, Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-book-details',
@@ -19,29 +20,11 @@ export class BookDetailsComponent {
 
   // book?: Book;
   // xbook = signal<Book | undefined>(undefined);
-  book$: Observable<Book>;
+  book$: Observable<Book> = this.route.paramMap.pipe(
+    map(params => params.get('isbn')),
+    filter(isbn => isbn !== null),
+    concatMap(isbn => this.bs.getSingle(isbn))
+  );
 
-  constructor() {
-    // PULL
-    // const isbn = this.route.snapshot.paramMap.get('isbn'); // path: 'books/:isbn'
-    // console.log(isbn);
-
-    // PUSH
-    this.book$ = this.route.paramMap.pipe(
-      map(params => params.get('isbn')),
-      filter(isbn => isbn !== null),
-      concatMap(isbn => this.bs.getSingle(isbn))
-    );
-
-
-
-
-
-  }
-
-  /*
-  AUFGABE
-  - Buch abrufen (HTTP getSingle)
-  - Buch anzeigen (z.B. Titel und Text)
-  */
+  bookx = toSignal(this.book$);
 }
