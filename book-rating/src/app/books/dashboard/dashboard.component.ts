@@ -50,24 +50,23 @@ export class DashboardComponent {
   }
 
   doRateUp(book: Book) {
-    const ratedBook = this.rs.rateUp(book);
-    this.updateList(ratedBook);
+    this.store.dispatch(BookActions.rateUp({ book: book }));
   }
 
   doRateDown(book: Book) {
-    const ratedBook = this.rs.rateDown(book);
-    this.updateList(ratedBook);
+    this.store.dispatch(BookActions.rateDown({ book: book }));
   }
 
   doDelete(book: Book) {
     this.bs.delete(book.isbn).subscribe(() => {
       this.bs.getAll().subscribe(books => {
         // this.books.set(books);
+        this.store.dispatch(BookActions.loadBooks())
       });
     })
   }
 
-  private updateList(ratedBook: Book) {
+  // private updateList(ratedBook: Book) {
     // [1,2,3,4,5].map(e => e * 10) // [10, 20, 30, 40, 50]
     // [1,2,3,4,5,6,7,8,9].filter(e => e % 2 === 0) // [2,4,6,8]
 
@@ -99,5 +98,5 @@ export class DashboardComponent {
     }));*/
 
 
-  }
+  //}
 }

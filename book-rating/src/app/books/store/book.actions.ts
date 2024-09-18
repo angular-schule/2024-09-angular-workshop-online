@@ -7,5 +7,7 @@ export const BookActions = createActionGroup({
     'Load Books': emptyProps(),
     'Load Books Success': props<{ data: Book[] }>(),
     'Load Books Failure': props<{ error: string }>(),
+    'Rate Up': props<{ book: Book }>(),
+    'Rate Down': props<{ book: Book }>(),
   }
 });
