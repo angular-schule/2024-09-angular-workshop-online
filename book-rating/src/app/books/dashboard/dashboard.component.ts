@@ -1,10 +1,10 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, resource, signal } from '@angular/core';
 import { Book } from '../shared/book';
 import { BookComponent } from '../book/book.component';
 import { BookRatingService } from '../shared/book-rating.service';
 import { JsonPipe } from '@angular/common';
 import { BookStoreService } from '../shared/book-store.service';
-import { HttpErrorResponse } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
     selector: 'app-dashboard',
@@ -16,23 +16,10 @@ export class DashboardComponent {
   private rs = inject(BookRatingService);
   private bs = inject(BookStoreService);
 
-  // books: Book[] = [];
-  books = signal<Book[]>([]);
+  booksResource = resource({
+    loader: () => firstValueFrom(this.bs.getAll())
+  });
 
-  constructor() {
-    /*this.bs.getAll().subscribe(books => {
-      this.books.set(books);
-    })*/
-
-
-    this.bs.getAll().subscribe({
-      next: books => {
-        this.books.set(books);
-        // this.books = books;
-      },
-      error: (err: HttpErrorResponse) => {}
-    })
-  }
 
   doRateUp(book: Book) {
     const ratedBook = this.rs.rateUp(book);
@@ -46,10 +33,8 @@ export class DashboardComponent {
 
   doDelete(book: Book) {
     this.bs.delete(book.isbn).subscribe(() => {
-      this.bs.getAll().subscribe(books => {
-        this.books.set(books);
-      });
-    })
+      this.booksResource.reload();
+    });
   }
 
   private updateList(ratedBook: Book) {
@@ -75,13 +60,15 @@ export class DashboardComponent {
     }))*/
 
     // mit Signal mit update()
-    this.books.update(currentBookList => currentBookList.map(b => {
+    this.booksResource.value.update(currentBookList => {
+      if (!currentBookList) { return; }
+      return currentBookList.map(b => {
       if (b.isbn === ratedBook.isbn) {
         return ratedBook;
       } else {
         return b;
       }
-    }));
+    })});
 
 
   }

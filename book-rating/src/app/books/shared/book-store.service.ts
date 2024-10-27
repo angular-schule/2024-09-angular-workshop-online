@@ -15,10 +15,12 @@ export class BookStoreService {
   constructor() { }
 
   getAll() {
+    console.log('BookStoreService.getAll()');
     return this.http.get<Book[]>(this.apiUrl + '/books');
   }
 
   getSingle(isbn: string) {
+    console.log(`BookStoreService.getSingle('${isbn}')`);
     return this.http.get<Book>(this.apiUrl + '/books/' + isbn);
   }
 

@@ -1,4 +1,4 @@
-@for (b of books(); track b.isbn) {
+@for (b of booksResource.value(); track b.isbn) {
 <app-book
   [book]="b"
   [maxRating]="5"
@@ -9,7 +9,7 @@
 }
 
 
-<p>Anzahl Bücher: {{ books().length }}</p>
+<p>Anzahl Bücher: {{ booksResource.value()?.length }}</p>
 
 
-{{ books | json }}
+{{ booksResource.value() | json }}
