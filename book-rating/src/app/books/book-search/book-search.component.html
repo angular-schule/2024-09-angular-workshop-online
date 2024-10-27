@@ -2,7 +2,7 @@
   <input type="search" class="form-control" [formControl]="searchControl">
 </div>
 
-@if (searchResult(); as books) {
+@if (results.value(); as books) {
   <h2>Ergebnisse</h2>
   <ul>
     @for (b of books; track b.isbn) {
