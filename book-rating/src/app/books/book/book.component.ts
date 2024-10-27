@@ -5,11 +5,10 @@ import { CurrencyPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-book',
-  standalone: true,
-  imports: [RatingComponent, CurrencyPipe, RouterLink],
-  templateUrl: './book.component.html',
-  styleUrl: './book.component.scss'
+    selector: 'app-book',
+    imports: [RatingComponent, CurrencyPipe, RouterLink],
+    templateUrl: './book.component.html',
+    styleUrl: './book.component.scss',
 })
 export class BookComponent {
   // Hier fließen Daten von der Elternkomponente hinein

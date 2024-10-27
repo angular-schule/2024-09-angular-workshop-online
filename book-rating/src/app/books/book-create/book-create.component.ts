@@ -6,11 +6,10 @@ import { Book } from '../shared/book';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-book-create',
-  standalone: true,
-  imports: [ReactiveFormsModule, JsonPipe],
-  templateUrl: './book-create.component.html',
-  styleUrl: './book-create.component.scss'
+    selector: 'app-book-create',
+    imports: [ReactiveFormsModule, JsonPipe],
+    templateUrl: './book-create.component.html',
+    styleUrl: './book-create.component.scss',
 })
 export class BookCreateComponent {
 

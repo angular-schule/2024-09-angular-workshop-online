@@ -7,11 +7,10 @@ import { BookStoreService } from '../shared/book-store.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
-  selector: 'app-dashboard',
-  standalone: true,
-  imports: [BookComponent, JsonPipe],
-  templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss',
+    selector: 'app-dashboard',
+    imports: [BookComponent, JsonPipe],
+    templateUrl: './dashboard.component.html',
+    styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent {
   private rs = inject(BookRatingService);

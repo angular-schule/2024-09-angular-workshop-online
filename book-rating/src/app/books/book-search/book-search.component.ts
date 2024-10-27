@@ -5,11 +5,10 @@ import { BookStoreService } from '../shared/book-store.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
-  selector: 'app-book-search',
-  standalone: true,
-  imports: [ReactiveFormsModule],
-  templateUrl: './book-search.component.html',
-  styleUrl: './book-search.component.scss',
+    selector: 'app-book-search',
+    imports: [ReactiveFormsModule],
+    templateUrl: './book-search.component.html',
+    styleUrl: './book-search.component.scss',
 })
 export class BookSearchComponent {
   searchControl = new FormControl('', { nonNullable: true });

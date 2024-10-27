@@ -2,16 +2,14 @@ import { Component, effect, inject, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { BookStoreService } from '../shared/book-store.service';
 import { Book } from '../shared/book';
-import { concatMap, filter, map, Observable, switchMap } from 'rxjs';
-import { AsyncPipe } from '@angular/common';
+import { filter, map, Observable, switchMap } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
-  selector: 'app-book-details',
-  standalone: true,
-  imports: [RouterLink, AsyncPipe],
-  templateUrl: './book-details.component.html',
-  styleUrl: './book-details.component.scss'
+    selector: 'app-book-details',
+    imports: [RouterLink],
+    templateUrl: './book-details.component.html',
+    styleUrl: './book-details.component.scss'
 })
 export class BookDetailsComponent {
 
